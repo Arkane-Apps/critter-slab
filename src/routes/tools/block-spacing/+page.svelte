@@ -1,8 +1,22 @@
 <script lang="ts">
   import Header from '$lib/components/header.svelte';
+  import type { FormEventHandler } from 'svelte/elements';
   let spacingOptions = $state(Array<Array<string>>());
 
   let inputValue: string = $state('');
+  function validateNumericInput(event: Event, currentTarget?: HTMLInputElement) {
+    if (!(event instanceof InputEvent)) {
+      return; // Ensure the event is an InputEvent
+    }
+    if (event.data !== null && isNaN(parseInt(event.data))) {
+      event.preventDefault(); // Prevent non-numeric input
+      currentTarget = event.currentTarget as HTMLInputElement;
+      if (currentTarget) {
+        currentTarget.value = currentTarget.value.replace(/[^0-9]/g, ''); // Remove non-numeric characters
+      }
+    }
+  }
+
   function handleCalculate() {
     inputValue = (inputValue.trim() || '0').replace(/[^0-9]/g, '');
     if (inputValue) {
@@ -56,11 +70,14 @@
     <div class="mt-4">
       <input
         type="text"
-        class="w-full rounded border p-2"
+        class="w-full rounded border p-2 text-black"
         placeholder="Enter value"
+        oninput={(e) => {
+          validateNumericInput(e);
+        }}
         bind:value={inputValue}
       />
-      <button class="mt-2 rounded bg-blue-500 px-4 py-2 text-white" on:click={handleCalculate}>
+      <button class="mt-2 rounded bg-blue-500 px-4 py-2 text-white" onclick={handleCalculate}>
         Calculate
       </button>
       {#each spacingOptions as option, index}

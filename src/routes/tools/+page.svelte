@@ -16,6 +16,12 @@
       extraClass="mt-4"
       href="/tools/block-spacing"
     />
+    <ToolCard
+      title="Leap Year Calculator"
+      detail="Check if any year is a leap year 😎."
+      extraClass="mt-4"
+      href="/tools/leap-year"
+    />
   </div>
 </main>
 sh
