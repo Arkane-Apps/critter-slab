@@ -1,0 +1,13 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@layer base {
+  @font-face {
+    font-family: 'Minecraft';
+    src: local('Minecraft'), local('minecraft-font'), local('minecraft_font'),
+      url('/fonts/minecraft_font.otf');
+    font-weight: normal;
+    font-display: swap;
+  }
+}
